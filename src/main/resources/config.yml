@@ -1,0 +1,423 @@
+#DO NOT TOUCH
+config-version: 68
+
+root-command: '/envoys'
+verbose-logging: false
+
+lang:
+  # The prefix to all messages
+  prefix: '&8[&4Envoys&8] &4'
+  no-permission: 'You do not have permission for this'
+  # When an envoy is successfully created
+  setup-finished: 'Envoy setup successfully'
+  # When you try to remove an envoy but there is no envoy with the ID you specified
+  not-a-valid-id: 'That ID does not exist / is not valid'
+  # When an envoy is successfully removed
+  removed-envoy: 'Successfully removed envoy.'
+  envoys-refilled: 'ALL ENVOYS HAVE BEEN REFILLED'
+  # The response to the amount sub-command
+  amount: 'There are %amount envoys (%worldAmount in your world)'
+  list: '%id (%tier) - World: %world X: %x Y: %y Z: %z'
+  # The response to the list sub-command
+  random-envoy-locations: 'An envoy spawned at World: %world X: %x Y: %y Z: %z!'
+  # If random-location.broadcast-locations is set to true, for every random envoy spawned, this message will be displayed
+  reload: 'Reloaded successfully'
+  data-saved: 'Data file saved successfully'
+  invalid-syntax: 'Invalid syntax, type /envoys help for help'
+  # If /envoys additem is entered with 0 or 1 arguments
+  add-item-no-name-or-chance: 'You must specify a name and a chance'
+  # If /envoys additem is entered without an item in the user's hand
+  no-item-in-hand: 'You must have an item in your hand'
+  # If /envoys additem is entered and the name specified already exists under contents in the config
+  name-already-exists: 'This name already exists in the config'
+  # When an item is successfully added to the contents
+  added-item: 'Successfully added item'
+  # Set broadcast-on-open to false to disable
+  broadcast-open-message: '%player opened a %tier envoy at %world, %x, %y, %z. There are now %remaining envoys left.'
+  called-drop: 'You have called a drop in!'
+  already-opened: 'This envoy was already opened %minutes minutes ago!'
+  current-envoys:
+    top: 'Current envoys'
+    line: 'There is an %tier envoy at: %world, %x, %y, %z'
+  disabled-region: 'Envoy drops cannot be called in this area'
+  compass-disabled: 'Envoy compass tracking has been disabled'
+  compass-enabled: 'Envoy compass tracking has been enabled'
+  compass-envoy-distance: 'The nearest envoy is %distance metres away'
+  compass-no-active-envoys: 'There are no envoys currently active'
+  # Message sent to the person who runs /envoys stop
+  cleared-envoys: 'Cleared all envoys'
+  # Broadcasted when all envoys have been opened. Set to '' to disable.
+  all-envoys-opened: 'All envoys have been opened!'
+  envoy-list-empty: 'You haven''t created any predefined envoys yet. Use /envoy create to create some'
+
+contents:
+  tiers:
+    # tier name
+    tier1:
+      # chance that this tier will be chosen
+      chance: 70
+
+      # text to be displayed above the envoy
+      hologram-text:
+        - '&b%tier Envoy'
+        - '&5line 2'
+
+      # A list of items this envoy should contain from the items section below
+      items:
+        - token
+        - my_item_1
+        - announcement
+    tier2:
+      chance: 30
+
+      # text to be displayed above the envoy
+      hologram-text:
+        - '&b%tier Envoy'
+        - '&5line 2'
+
+      items:
+        - another_item
+  items:
+    # See the wiki for an in-depth explaination
+    my_item_1:
+      type: item
+      chance: 70
+      id: diamond_sword
+      data: 0
+      name: '&4My &9Item'
+      amount: 3
+      lore:
+      - '&3Lore &4Line &21'
+      - '&3Lore &4Line &12'
+      enchants:
+      - 'DAMAGE_ALL,5'
+      - 'FIRE_ASPECT,3'
+      nbt:
+      # https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/inventory/ItemFlag.html
+      flags:
+        - HIDE_ENCHANTS
+        - HIDE_DESTROYS
+
+    another_item:
+      type: item
+      chance: 32
+      id: cooked_beef
+      data: 0
+      name: 'Another item'
+      amount: 64
+      lore:
+      enchants:
+      nbt:
+      flags:
+        - HIDE_UNBREAKABLE
+
+    token:
+      type: item
+      chance: 78.9
+      id: paper
+      data: 0
+      name: '&9Token'
+      amount: 1
+      lore:
+      - '&3This is a crate token'
+      - '&eRight click a crate to open it'
+      enchants:
+      - 'ARROW_INFINITE,10'
+      nbt:
+        - type: STRING
+          key: key1
+          value: value
+        - type: INT
+          key: key2
+          value: 12267
+      flags:
+
+    announcement:
+      type: command
+      chance: 100
+      commands:
+        - 'say &a%player has just opened an %envoy_type envoy!'
+        - 'say &9command 2 here'
+
+holograms:
+  enabled: true
+
+#Should the envoys reset after a set amount of time or only be reset by a command?
+envoys-refilled-by-command-only: false
+
+#How often the envoys refill, in seconds
+envoy-refill-delay: 1800
+
+# Require a minimum amount of players to be online to start envoy events
+envoy-refill-minimum-players:
+  enabled: false
+  minimum-players: 10
+
+# Should we remove envoys after a certain amount of time?
+envoy-auto-remove:
+  enabled: false
+  # in seconds
+  remove-time: 120
+
+# Tell the user if the envoy was previously opened
+tell-if-already-opened: false
+
+# How many envoys should be created per second when refilling?
+updates-per-second: 5
+
+# Envoys can be created at random locations each time
+random-location:
+  # To enable random envoys, set this to true
+  enabled: true
+  # The amount of random envoys you would like created each time
+  amount: 5
+
+  # X / Z bounds for random locations. Alternatively, you can use worldguard regions
+  # Minimum random X location
+  min-x: -10000
+  # Minimum random Z location
+  min-z: -10000
+  # Maximum random X location
+  max-x: 10000
+  # Maximum  random Z location
+  max-z: 10000
+
+  # If set to true, the envoys will always spawn at the highest block so they are not underground
+  always-on-top: true
+  # The minimum Y coordinate the envoys will be spawned at
+  minimum-y: 1
+  # The maximum Y coordinate that envoys will be spawned at
+  maximum-y: 255
+  # If set to true, Envoys will scan up to 20 times until it finds a valid block (i.e. skips void)
+  dont-spawn-in-air: false
+
+  # You can disable random envoys for specific worlds
+  disabled-worlds:
+  - 'world1'
+  - 'exampleWorld'
+  -
+  broadcast-locations:
+      # If set to true, the locations of random envoys will be broadcasted
+    enabled: false
+    only-to-players-in-same-world: true
+
+  # If set to true, only random location envoys will be spawned every x seconds (set in envoy-refill-delay)
+  only-refill-random-location-envoys: false
+
+  # If set to true, when new random envoys spawn, the old ones will be deleted.
+  delete-old-envoys: true
+
+  # For help configuring this section, see https://github.com/Dot-Rar/Envoys/wiki
+  worldguard-integration:
+    enabled: false
+    # Either "everywhere", "blacklist" or "whitelist"
+    type: everywhere
+
+    # Envoys WON'T spawn in these regions if type is set to "blacklist"
+    blacklisted-regions:
+    - region1
+    - region2
+
+    # Envoys will only spawn in these regions if type set to "whitelist"
+    whitelisted-regions:
+      spawnregion1:
+        # Should we use the 'automatic' algorithm (use tier chances, all tiers in random-tiers available), or the 'manual' method (tiers & amounts specified in tiers section)
+        tier-selection: 'automatic'
+        # Total amount of envoys to spawn in the region
+        amount: 5
+        world: world
+        # Regions that we should ignore, within spawnregion1
+        # i.e. if you want to spawn envoys within your warzone, but not spawn
+        exclude:
+          - excludedregion1
+      spawnregion2:
+        # Should we use the 'automatic'  algorithm (use tier chances, all tiers in random-tiers available), or the 'manual' method (tiers & amounts specified in tiers section)
+        tier-selection: 'manual'
+        tiers:
+          # Spawn 3 tier 1 envoys
+          tier1: 3
+          # Spawn 7 tier 2 envoys
+          tier2: 7
+        world: world
+        # Regions that we should ignore, within spawnregion2
+        # i.e. if you want to spawn envoys within your warzone, but not spawn
+        exclude:
+
+  # Other integrations
+  integrations:
+    # If enabled, envoys will not spawn within GriefPrevention claims
+    griefprevention:
+      enabled: false
+
+  # Tiers to choose from if using the 'automatic' tier-selection algorithm
+  random-tiers:
+  - tier1
+  - tier2
+
+# Max items in a chest
+max-items: 5
+# Minimum items in a chest
+min-items: 1
+
+# Max commands executed on chest open
+max-commands: 5
+# Minimum commands executed on chest open
+min-commands: 0
+
+# Commands to be executed when an envoy spawns (not when it is opened)
+# Available variables:
+# %x - X coordinate of the envoy
+# %y - Y coordinate of the envoy
+# %z - Z coordinate of the envoy
+# %world - Name of the world the envoy spawned in
+# %tier - Name of the tier of the envoy
+commands-on-spawn:
+  - 'broadcast &8>> &4A %tier envoy has spawned at %x %y %z in %world'
+
+particles:
+  # Set to true to enable particles
+  enabled: false
+  # The style in which particles should be spawned in
+  # Currently only 'circle' is supported
+  style: circle
+
+  # The type of particle. A list can be found here: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Particle.html
+  particle-type: REDSTONE
+
+  # Only works for REDSTONE, SPELL_MOB and SPELL_MOB_AMBIENT particles.
+  colour:
+    enabled: true
+    # Colour list: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Color.html
+    # Will pick random colours from here
+    colours:
+      - AQUA
+      - BLACK
+      - BLUE
+      - FUCHSIA
+      - GRAY
+      - GREEN
+      - LIME
+      - MAROON
+      - NAVY
+      - OLIVE
+      - ORANGE
+      - PURPLE
+      - RED
+      - SILVER
+      - TEAL
+      - WHITE
+      - YELLOW
+
+  # Style configuration
+  styles:
+    # Configuration for the circle style
+    circle:
+      # How many particles should be spawned?
+      particle-count: 10
+      # How far from the chest should the particles be spawned?
+      radius: 2.0
+
+firework-on-open:
+  # Should a firework be spawned when somebody opens an envoy?
+  enabled: true
+  # Value between 1 and 5. Determines how big the firework is
+  power: 2
+  # Should the firework flicker?
+  flicker: false
+  # Should the firework have a trail
+  trail: true
+  # Any from this list: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/FireworkEffect.Type.html (BALL, BALL_LARGE, BURST, CREEPER)
+  type: STAR
+  # A list of colours from here: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Color.html
+  colors:
+    - RED
+    - WHITE
+    - YELLOW
+
+# Should the envoy be deleted after it is opened? (will be deleted when the user has closed it)
+delete-after-open: true
+
+# When a player opens an envoy, should the lang.broadcast-open-message message be broadcasted?
+broadcast-on-open: false
+
+# Flare configuration
+drop-item:
+  enabled: true
+  # Item type for flares to use
+  # https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html
+  material: REDSTONE_TORCH
+  # Item name for flares
+  name: '&cCall envoy'
+  # Colour to show tier as in the lore
+  tier-color: 'c'
+  # Other lore of a flare - do not make this empty
+  lore:
+  - '&cRight click this item'
+  - '&cto call an envoy'
+
+  # Message to be broadcasted when the player places the flare
+  broadcast-on-place: '%player called an envoy in at %x, %y, %z'
+  # Should the location be broadcasted when the envoy is dropped
+  broadcast-location: false
+  # How long until the envoy should be placed in seconds
+  wait-time: 0
+  # Regions flares shouldn't be spawned in
+  disabled-regions:
+    - region1
+    - region2
+  # Worlds flares shouldn't be spawned in outright
+  disabled-worlds:
+    - disabled-world-1
+    - disabled-world-2
+
+refill-countdown:
+  60: '60 seconds until refill'
+  120: '120 seconds until refill'
+
+# Should we only refill envoys x minutes after they are opened?
+# Niche option, wouldn't recommend using
+start-refill-countdown-after-opened: false
+
+# In which worlds should the lang.envoys-refilled message be announced?
+refilled-message-worlds:
+  - world
+  - world_nether
+  - world_the_end
+
+# Can we report metrics to bstats, such as player count, server version, java version, server country, etc.
+# All information is anonymised.
+enable-metrics: true
+
+compass:
+  # Should the compass feature be enabled?
+  enabled: true
+  # Set to true if you want compass to always point to the nearest envoy, rather than being enabled by /envoy compass
+  always-on: false
+  # How often should we check where the nearest envoy is, in seconds
+  refresh-interval: 10
+
+# Falling block chests
+fall-from-sky:
+  enabled: true
+  y: 255
+  check-interval: 2
+  # If your envoys are stuck showing as armour stands, you can try setting this to true
+  # If you're using TacoSpigot, make sure armor-stand.optimize-movement = false, otherwise envoys will just get stuck
+  # in the air.
+  use-alternative-on-ground-check: false
+
+update-checker:
+  notify-on-join: true
+
+# Should we destroy envoys on open, making the items explode out?
+destroy-on-open:
+  enabled: false
+  # Should we alternatively transfer the items to the user's inventory as soon as they right click the chest?
+  # Note, you must set enabled = true above
+  transfer-items-to-inventory: false
+
+# should we set a limit on the max & min count of predefined envoys
+limit-predefined-envoys:
+  enabled: false
+  max: 10
+  min: 0
