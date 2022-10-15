@@ -2,8 +2,7 @@ name: Envoys
 main: com.perkelle.dev.envoys.Bootstrap
 version: 5.8.0
 api-version: 1.13
-softdepend: [PlaceholderAPI, WorldEdit, WorldGuard, HolographicDisplays, Multiverse-Core, GriefPrevention]
-depend: [DependencyManager]
+softdepend: [DependencyManager, PlaceholderAPI, WorldEdit, WorldGuard, HolographicDisplays, Multiverse-Core, GriefPrevention]
 permissions:
   envoys.*:
     description: Gives access to all envoy commands
