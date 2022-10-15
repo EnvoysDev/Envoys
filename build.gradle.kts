@@ -41,8 +41,8 @@ dependencies {
     implementation("org.bstats:bstats-bukkit:3.0.0")
 
     // nexus repos
-    implementation("org.codemc.worldguardwrapper:worldguardwrapper:1.1.6-SNAPSHOT")
-    implementation("de.tr7zw:item-nbt-api-plugin:2.8.0")
+    implementation("org.codemc.worldguardwrapper:worldguardwrapper:1.2.0-SNAPSHOT")
+    implementation("de.tr7zw:item-nbt-api-plugin:2.10.0")
     implementation("io.papermc:paperlib:1.0.7")
 
     //compile "org.spigotmc:spigot-api:1.15.2-R0.1-SNAPSHOT"
