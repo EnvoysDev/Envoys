@@ -43,7 +43,7 @@ dependencies {
     // nexus repos
     implementation("org.codemc.worldguardwrapper:worldguardwrapper:1.1.6-SNAPSHOT")
     implementation("de.tr7zw:item-nbt-api-plugin:2.8.0")
-    implementation("io.papermc:paperlib:1.0.6")
+    implementation("io.papermc:paperlib:1.0.7")
 
     //compile "org.spigotmc:spigot-api:1.15.2-R0.1-SNAPSHOT"
     //compileOnly("io.papermc.paper:paper-api:1.17-R0.1-SNAPSHOT")
