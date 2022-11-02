@@ -45,9 +45,7 @@ dependencies {
     implementation("de.tr7zw:item-nbt-api-plugin:2.10.0")
     implementation("io.papermc:paperlib:1.0.7")
 
-    //compile "org.spigotmc:spigot-api:1.15.2-R0.1-SNAPSHOT"
-    //compileOnly("io.papermc.paper:paper-api:1.17-R0.1-SNAPSHOT")
-    compileOnly("com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT")
+    compileOnly("io.papermc.paper:paper-api:1.19.2-R0.1-SNAPSHOT")
     compileOnly("me.clip:placeholderapi:2.8.2")
     compileOnly("com.gmail.filoghost.holographicdisplays:holographicdisplays-api:2.4.0")
 
@@ -63,6 +61,7 @@ dependencies {
 
     compileOnly("org.apache.httpcomponents:fluent-hc:4.5.13")
     compileOnly("org.apache.commons:commons-math3:3.6.1")
+    compileOnly("commons-lang:commons-lang:2.6")
 }
 
 tasks {
