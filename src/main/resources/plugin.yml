@@ -1,6 +1,6 @@
 name: Envoys
 main: com.perkelle.dev.envoys.Bootstrap
-version: 5.8.0
+version: 5.9.0
 api-version: 1.13
 softdepend: [DependencyManager, PlaceholderAPI, WorldEdit, WorldGuard, HolographicDisplays, Multiverse-Core, GriefPrevention]
 permissions:
@@ -38,3 +38,4 @@ libraries:
   - org.apache.httpcomponents:httpclient:4.5.13
   - org.apache.httpcomponents:fluent-hc:4.5.13
   - org.apache.commons:commons-math3:3.6.1
+  - commons-lang:commons-lang:2.6

@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "com.perkelle.dev.envoys"
-version = "5.8.0"
+version = "5.9.0"
 
 sourceSets.main {
     java.srcDirs("src/main/java", "src/main/kotlin")
