@@ -1,6 +1,6 @@
 package com.perkelle.dev.envoys;
 
-import com.perkelle.dev.dependencymanager.dependency.Dependency;
+import com.perkelle.dev.envoys.abstraction.ServerVersion;
 import com.perkelle.dev.envoys.dependencyinjection.Dependencies;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -17,9 +17,13 @@ public class Bootstrap extends JavaPlugin {
     @Override
     public void onEnable() {
         if (!isJava16()) {
+            if (getServer().getPluginManager().getPlugin("DependencyManager") == null) {
+                getLogger().severe("Install DependencyManager for Envoys to work; or alternatively update to Java 16 if using 1.16+");
+                return;
+            }
             checkMigration();
 
-            List<Dependency> dependencies = new Dependencies().getDependencies(this);
+            List<com.perkelle.dev.dependencymanager.dependency.Dependency> dependencies = new Dependencies().getDependencies(this);
             CountDownLatch latch = new CountDownLatch(dependencies.size());
 
             Runnable onComplete = latch::countDown;

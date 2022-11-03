@@ -10,7 +10,7 @@ class InventorySnapshotV_1_12 : IInventorySnapshot {
         val inv = Bukkit.createInventory(null, chest.inventory.size)
 
         val contents = chest.inventory.contents
-                .filterNotNull()
+                ?.filterNotNull()!!
                 .filterNot { it.type == Material.AIR }
 
         for ((i, item) in contents.withIndex()) {

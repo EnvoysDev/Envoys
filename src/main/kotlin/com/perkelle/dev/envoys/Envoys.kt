@@ -16,11 +16,11 @@ import com.perkelle.dev.envoys.utils.async
 import com.perkelle.dev.envoys.utils.gui.GUIListener
 import com.perkelle.dev.envoys.utils.sync
 import org.bstats.bukkit.Metrics
-
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.plugin.Plugin
 import org.bukkit.plugin.java.JavaPlugin
+import java.lang.reflect.Method
 import java.util.*
 import javax.script.ScriptEngineManager
 
@@ -34,6 +34,8 @@ fun verboseLog(str: String) {
 }
 
 class Envoys(val pl: Plugin) {
+
+    private var syncCommandsMethod: Method? = null
 
     companion object {
         lateinit var instance: Envoys
@@ -148,6 +150,13 @@ class Envoys(val pl: Plugin) {
 
             // Register commands
             EnvoysCommand().register()
+            try {
+                syncCommandsMethod = Bukkit.getServer().javaClass.getDeclaredMethod("syncCommands")
+                syncCommandsMethod?.isAccessible = true
+                syncCommandsMethod?.invoke(Bukkit.getServer())
+            } catch (e: Exception) {
+                verboseLog("Completely failed to register commands")
+            }
             verboseLog("Registered commands")
 
             val refillManager = RefillManager()

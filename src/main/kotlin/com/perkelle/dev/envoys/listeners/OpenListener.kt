@@ -109,7 +109,7 @@ class OpenListener: Listener {
                 val chestInv = IInventorySnapshot.instance.getInventorySnapshot(chest)
 
                 chest.inventory.clear()
-                p.inventory.addItem(*chestInv.contents.filterNotNull().filterNot { it.type == Material.AIR }.toTypedArray())
+                p.inventory.addItem(*chestInv.contents?.filterNotNull()!!.filterNot { it.type == Material.AIR }.toTypedArray())
                         .values.forEach { item -> p.world.dropItem(p.location, item) }
             }
 
